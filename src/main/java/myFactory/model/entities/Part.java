@@ -21,7 +21,8 @@ public class Part {
     private String description;
 
     @ManyToMany
-    private List<Machine> machine;
+    private List<Warehouser> purchaser;
+
 
     public Part() {
     }
@@ -58,12 +59,12 @@ public class Part {
         this.description = description;
     }
 
-    public List<Machine> getMachine() {
-        return machine;
+    public List<Warehouser> getPurchaser() {
+        return purchaser;
     }
 
-    public Part setMachine(List<Machine> machine) {
-        this.machine = machine;
+    public Part setPurchaser(List<Warehouser> purchaser) {
+        this.purchaser = purchaser;
         return this;
     }
 }

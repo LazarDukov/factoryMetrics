@@ -12,20 +12,10 @@ import java.util.List;
 @Table(name = "supervisors")
 public class Supervisor extends Worker {
 
-    @OneToMany
-    private List<Task> createdTasks;
 
     public Supervisor() {
         super();
 
     }
 
-    public List<Task> getCreatedTasks() {
-        return createdTasks;
-    }
-
-    public Supervisor setCreatedTasks(List<Task> createdTasks) {
-        this.createdTasks = createdTasks;
-        return this;
-    }
 }
