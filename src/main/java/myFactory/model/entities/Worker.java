@@ -13,9 +13,6 @@ public abstract class Worker {
     private UUID id;
 
     @Column
-    private String name;
-
-    @Column
     private String firstName;
     @Column
     private String lastName;
@@ -28,9 +25,8 @@ public abstract class Worker {
     @OneToOne
     private WorkerRole role;
 
-    protected Worker(UUID id, String name, String firstName, String lastName, int age, String password) {
+    protected Worker(UUID id, String firstName, String lastName, int age, String password) {
         this.id = id;
-        this.name = name;
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
@@ -49,13 +45,6 @@ public abstract class Worker {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getFirstName() {
         return firstName;
