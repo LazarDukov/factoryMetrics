@@ -1,19 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
-      xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Add new colleague</title>
 </head>
 <body>
 <h1>Register new colleague</h1>
-<form>
+<form id="colleagueRegistrationDTO" action="/user/register" method="POST">
     <label>First name:</label>
-    <input type="text"></br>
+    <input type="text" name="firstName" required></br>
     <label>Last name:</label>
-    <input type="text"></br>
+    <input type="text" name="lastName" required></br>
     <label>Age:</label>
-    <select>
+    <select type="number" name="age" required>
         <option value="placeholder" selected>Click to select</option>
         <option>18</option>
         <option>19</option>
@@ -71,26 +70,13 @@
     <label>Confirm password:</label>
     <input type="password"></br>
     <label>Select your working position</label>
-    <select>
+    <select type="text" name="workingPosition" required>
         <option selected>Click her to choose</option>
         <option>Supervisor</option>
         <option>Warehouser</option>
         <option>Technician</option>
     </select>
+    <button type="submit" >Register</button>
 </form>
 </body>
 </html>
-
-
-<!--@Column-->
-<!--private String firstName;-->
-<!--@Column-->
-<!--private String lastName;-->
-<!--@Column-->
-<!--private int age;-->
-
-<!--@Column-->
-<!--private String password;-->
-
-<!--@OneToOne-->
-<!--private WorkerRole role;-->
