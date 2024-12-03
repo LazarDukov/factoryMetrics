@@ -7,6 +7,7 @@ import myFactory.model.enums.WorkerRoleEnum;
 import myFactory.repository.TechnicianRepository;
 import myFactory.repository.WorkerRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,10 +18,13 @@ public class RegisterService {
     private WorkerRoleRepository workerRoleRepository;
     private TechnicianRepository technicianRepository;
 
+    private PasswordEncoder passwordEncoder;
+
     @Autowired
-    public RegisterService(WorkerRoleRepository workerRoleRepository, TechnicianRepository technicianRepository) {
+    public RegisterService(WorkerRoleRepository workerRoleRepository, TechnicianRepository technicianRepository, PasswordEncoder passwordEncoder) {
         this.workerRoleRepository = workerRoleRepository;
         this.technicianRepository = technicianRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional
@@ -33,6 +37,7 @@ public class RegisterService {
         newTechnician.setFirstName(colleagueRegistrationDTO.getFirstName());
         newTechnician.setLastName(colleagueRegistrationDTO.getLastName());
         newTechnician.setAge(colleagueRegistrationDTO.getAge());
+        newTechnician.setPassword(passwordEncoder.encode(colleagueRegistrationDTO.getPassword()));
         newTechnician.setRole(workerRoleRepository.findWorkerRoleByRole(WorkerRoleEnum.TECHNICIAN));
         newTechnician.setTasks(new ArrayList<>());
         technicianRepository.save(newTechnician);

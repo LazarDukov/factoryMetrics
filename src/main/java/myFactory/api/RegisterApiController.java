@@ -17,9 +17,14 @@ public class RegisterApiController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<ColleagueRegistrationDTO> postRegisterPage(@Valid @ModelAttribute ColleagueRegistrationDTO colleagueRegistrationDTO, BindingResult bindingResult) {
-        registerService.RegisterNewColleague(colleagueRegistrationDTO);
-        return ResponseEntity.ok(colleagueRegistrationDTO);
+    public ResponseEntity<String> postRegisterPage(@Valid ColleagueRegistrationDTO colleagueRegistrationDTO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity.badRequest().body(bindingResult.getAllErrors().toString());
+        } else {
+            registerService.RegisterNewColleague(colleagueRegistrationDTO);
+            return ResponseEntity.ok("Registration is successfully!");
+
+        }
 
     }
 }

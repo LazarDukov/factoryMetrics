@@ -22,7 +22,8 @@ public class WorkerRole {
         return role;
     }
 
-    public void setRole(WorkerRoleEnum role) {
+    public WorkerRole setRole(WorkerRoleEnum role) {
         this.role = role;
+        return null;
     }
 }
