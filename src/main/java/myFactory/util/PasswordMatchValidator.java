@@ -27,6 +27,7 @@ public class PasswordMatchValidator implements ConstraintValidator<PasswordMatch
 
         boolean isValid = passwordValue.equals(confirmPasswordValue);
         if (!isValid) {
+            context.disableDefaultConstraintViolation();
             context.buildConstraintViolationWithTemplate("Password should be the same!").addPropertyNode(confirmPassword).addConstraintViolation();
         }
         return isValid;
