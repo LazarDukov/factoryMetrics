@@ -17,7 +17,7 @@ public class RegisterApiController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> postRegisterPage(@Valid ColleagueRegistrationDTO colleagueRegistrationDTO, BindingResult bindingResult) {
+    public ResponseEntity<String> postRegisterPage(@Valid @RequestBody ColleagueRegistrationDTO colleagueRegistrationDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body(bindingResult.getAllErrors().toString());
         } else {
