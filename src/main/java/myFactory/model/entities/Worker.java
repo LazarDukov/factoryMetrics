@@ -22,8 +22,8 @@ public abstract class Worker {
     @Column
     private String password;
 
-    @OneToOne
-    private WorkerRole role;
+    @ManyToMany
+    private List<WorkerRole> role;
 
     protected Worker(UUID id, String firstName, String lastName, int age, String password) {
         this.id = id;
@@ -78,11 +78,12 @@ public abstract class Worker {
         this.password = password;
     }
 
-    public WorkerRole getRole() {
+    public List<WorkerRole> getRole() {
         return role;
     }
 
-    public void setRole(WorkerRole role) {
+    public Worker setRole(List<WorkerRole> role) {
         this.role = role;
+        return this;
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 
@@ -28,7 +29,7 @@ public class RegisterService {
     }
 
     @Transactional
-    public void RegisterNewColleague(@Valid ColleagueRegistrationDTO colleagueRegistrationDTO) {
+    public void RegisterNewColleague(@Valid @RequestBody ColleagueRegistrationDTO colleagueRegistrationDTO) {
         registerNewTechnician(colleagueRegistrationDTO);
     }
 
@@ -38,7 +39,8 @@ public class RegisterService {
         newTechnician.setLastName(colleagueRegistrationDTO.getLastName());
         newTechnician.setAge(colleagueRegistrationDTO.getAge());
         newTechnician.setPassword(passwordEncoder.encode(colleagueRegistrationDTO.getPassword()));
-        newTechnician.setRole(workerRoleRepository.findWorkerRoleByRole(WorkerRoleEnum.TECHNICIAN));
+        newTechnician.setRole(new ArrayList<>());
+        newTechnician.getRole().add(workerRoleRepository.findWorkerRoleByRole(WorkerRoleEnum.TECHNICIAN));
         newTechnician.setTasks(new ArrayList<>());
         technicianRepository.save(newTechnician);
 

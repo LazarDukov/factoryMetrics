@@ -16,11 +16,9 @@ public @interface PasswordMatchValidatorInterface {
 
     String confirmPassword();
 
-    String message()
+    String message() default "Passwords should be the same!";
 
-    default "Passwords should be the same!";
-
-    Class<?>[] groups() default{};
+    Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
 }

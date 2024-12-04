@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import myFactory.util.PasswordMatchValidatorInterface;
 
-@PasswordMatchValidatorInterface(password = "password", confirmPassword = "confirmPassword")
+@PasswordMatchValidatorInterface(password = "password", confirmPassword = "confirmPassword", message = "PASSWORD SHOULD MATCH!")
 public class ColleagueRegistrationDTO {
     @NotBlank(message = "Your first name cannot be empty!")
     @Size(min = 2, max = 15)
