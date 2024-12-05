@@ -29,7 +29,7 @@ public class RegisterService {
     }
 
     @Transactional
-    public void RegisterNewColleague(@Valid @RequestBody ColleagueRegistrationDTO colleagueRegistrationDTO) {
+    public void RegisterNewColleague(ColleagueRegistrationDTO colleagueRegistrationDTO) {
         registerNewTechnician(colleagueRegistrationDTO);
     }
 

@@ -1,12 +1,14 @@
 package myFactory.model.entities;
 
 import jakarta.persistence.*;
+import myFactory.util.PasswordMatchValidatorInterface;
 
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
 @MappedSuperclass
+@PasswordMatchValidatorInterface(password = "password", confirmPassword = "confirmPassword", message = "should matching these passwords!")
 public abstract class Worker {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -21,6 +23,9 @@ public abstract class Worker {
 
     @Column
     private String password;
+
+    @Transient
+    private String confirmPassword;
 
     @ManyToMany
     private List<WorkerRole> role;
@@ -76,6 +81,15 @@ public abstract class Worker {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public Worker setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+        return this;
     }
 
     public List<WorkerRole> getRole() {

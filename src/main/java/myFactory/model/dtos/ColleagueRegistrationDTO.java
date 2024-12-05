@@ -1,6 +1,7 @@
 package myFactory.model.dtos;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import myFactory.util.PasswordMatchValidatorInterface;
 
@@ -12,7 +13,7 @@ public class ColleagueRegistrationDTO {
     @NotBlank(message = "Your last name cannot be empty!")
     @Size(min = 2, max = 15)
     private String lastName;
-    @NotBlank
+    @NotNull(message = "You should choose your are!")
     private int age;
     @NotBlank(message = "Password is required")
     @Size(min = 6, max = 20)
@@ -20,7 +21,7 @@ public class ColleagueRegistrationDTO {
     @NotBlank(message = "Password is required")
     @Size(min = 6, max = 20)
     private String confirmPassword;
-    @NotBlank
+    @NotBlank(message = "You should add your role!")
     private String role;
 
     public ColleagueRegistrationDTO(String firstName, String lastName, int age, String password, String confirmPassword, String role) {

@@ -19,12 +19,15 @@ public class RegisterApiController {
     @PostMapping("/register")
     public ResponseEntity<String> postRegisterPage(@Valid @ModelAttribute ColleagueRegistrationDTO colleagueRegistrationDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-           return ResponseEntity.badRequest().body("Validation errors occurred!");
-        } else {
+            bindingResult.getAllErrors().forEach(error -> {
+                System.out.println("Error: " + error.getDefaultMessage());
+            });
+            return ResponseEntity.badRequest().body("Validation errors occurred!");
+        }
             registerService.RegisterNewColleague(colleagueRegistrationDTO);
             return ResponseEntity.ok("Registration is successfully!");
 
-        }
+
 
     }
 }

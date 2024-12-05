@@ -16,22 +16,19 @@ public class PasswordMatchValidator implements ConstraintValidator<PasswordMatch
     }
 
     @Override
-    public boolean isValid(Object value, ConstraintValidatorContext context) {
-        BeanWrapper beanWrapper = PropertyAccessorFactory.forBeanPropertyAccess(value);
-        Object passwordValue = beanWrapper.getPropertyValue(this.password);
-        Object confirmPasswordValue = beanWrapper.getPropertyValue(this.confirmPassword);
-
-        if (passwordValue == null || confirmPasswordValue == null) {
-            return false;
-        }
-
-        boolean isValid = passwordValue.equals(confirmPasswordValue);
-        if (!isValid) {
-            context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate("Passwords should be the same!")
+    public boolean isValid(Object object, ConstraintValidatorContext constraintValidatorContext) {
+        BeanWrapper beanWrapper = PropertyAccessorFactory.forBeanPropertyAccess(object);
+        Object passwordValue = beanWrapper.getPropertyValue(password);
+        Object confirmPasswordValue = beanWrapper.getPropertyValue(confirmPassword);
+        System.out.println("Password: " + passwordValue + ", Confirm Password: " + confirmPasswordValue);
+        if (passwordValue == null || !passwordValue.equals(confirmPasswordValue)) {
+            constraintValidatorContext.disableDefaultConstraintViolation();
+            constraintValidatorContext.buildConstraintViolationWithTemplate("Passwords must match!")
                     .addPropertyNode(confirmPassword)
                     .addConstraintViolation();
+            return false; // Validation failed
         }
-        return isValid;
+
+        return true; // Validation passed
     }
 }
