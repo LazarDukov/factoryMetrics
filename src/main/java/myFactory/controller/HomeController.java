@@ -6,10 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
-    @PostConstruct
-    public void init() {
-        System.out.println("HomeController initialized.");
-    }
+
     @GetMapping("/")
     private String homePage() {
         return "home";

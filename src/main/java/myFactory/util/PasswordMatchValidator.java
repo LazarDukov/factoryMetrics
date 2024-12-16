@@ -20,7 +20,6 @@ public class PasswordMatchValidator implements ConstraintValidator<PasswordMatch
         BeanWrapper beanWrapper = PropertyAccessorFactory.forBeanPropertyAccess(object);
         Object passwordValue = beanWrapper.getPropertyValue(password);
         Object confirmPasswordValue = beanWrapper.getPropertyValue(confirmPassword);
-        System.out.println("Password: " + passwordValue + ", Confirm Password: " + confirmPasswordValue);
         if (passwordValue == null || !passwordValue.equals(confirmPasswordValue)) {
             constraintValidatorContext.disableDefaultConstraintViolation();
             constraintValidatorContext.buildConstraintViolationWithTemplate("Passwords must match!")

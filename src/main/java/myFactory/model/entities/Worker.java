@@ -8,7 +8,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @MappedSuperclass
-@PasswordMatchValidatorInterface(password = "password", confirmPassword = "confirmPassword", message = "should matching these passwords!")
+//@PasswordMatchValidatorInterface(password = "password", confirmPassword = "confirmPassword", message = "should matching these passwords!")
 public abstract class Worker {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
