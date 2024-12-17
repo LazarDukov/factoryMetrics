@@ -15,6 +15,10 @@ public abstract class Worker {
     private UUID id;
 
     @Column
+    private String workerIdentityNickname;
+
+
+    @Column
     private String firstName;
     @Column
     private String lastName;
@@ -27,15 +31,21 @@ public abstract class Worker {
     @Transient
     private String confirmPassword;
 
+    @Column
+    private String email;
+
+
     @ManyToMany
     private List<WorkerRole> role;
 
-    protected Worker(UUID id, String firstName, String lastName, int age, String password) {
+    protected Worker(UUID id, String workerIdentityNickname, String firstName, String lastName, int age, String password, String email) {
         this.id = id;
+        this.workerIdentityNickname = workerIdentityNickname;
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
         this.password = password;
+        this.email = email;
     }
 
     protected Worker() {
@@ -50,6 +60,14 @@ public abstract class Worker {
         this.id = id;
     }
 
+    public String getWorkerIdentityNickname() {
+        return workerIdentityNickname;
+    }
+
+    public Worker setWorkerIdentityNickname(String workerIdentityNickname) {
+        this.workerIdentityNickname = workerIdentityNickname;
+        return this;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -89,6 +107,15 @@ public abstract class Worker {
 
     public Worker setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
+        return this;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public Worker setEmail(String email) {
+        this.email = email;
         return this;
     }
 

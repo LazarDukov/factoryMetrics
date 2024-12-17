@@ -48,8 +48,10 @@ public class RegisterService {
 
     private void registerNewWarehouser(ColleagueRegistrationDTO colleagueRegistrationDTO) {
         Warehouser newWarehouser = new Warehouser();
+        newWarehouser.setWorkerIdentityNickname(createIdentity(colleagueRegistrationDTO));
         newWarehouser.setFirstName(colleagueRegistrationDTO.getFirstName());
         newWarehouser.setLastName(colleagueRegistrationDTO.getLastName());
+        newWarehouser.setEmail(colleagueRegistrationDTO.getEmail());
         newWarehouser.setAge(colleagueRegistrationDTO.getAge());
         newWarehouser.setPassword(passwordEncoder.encode(colleagueRegistrationDTO.getPassword()));
         newWarehouser.setRole(new ArrayList<>());
@@ -58,10 +60,21 @@ public class RegisterService {
         warehouserRepository.save(newWarehouser);
     }
 
+    private String createIdentity(ColleagueRegistrationDTO colleagueRegistrationDTO) {
+        StringBuilder stringBuilder = new StringBuilder();
+        long countWorkersInFactory = 1 + warehouserRepository.count() + technicianRepository.count() + supervisorRepository.count();
+        stringBuilder.append(colleagueRegistrationDTO.getFirstName(), 0, 2);
+        stringBuilder.append(countWorkersInFactory);
+        stringBuilder.append(colleagueRegistrationDTO.getLastName(), 0, 2);
+        return stringBuilder.toString();
+    }
+
     private void registerNewTechnician(ColleagueRegistrationDTO colleagueRegistrationDTO) {
         Technician newTechnician = new Technician();
+        newTechnician.setWorkerIdentityNickname(createIdentity(colleagueRegistrationDTO));
         newTechnician.setFirstName(colleagueRegistrationDTO.getFirstName());
         newTechnician.setLastName(colleagueRegistrationDTO.getLastName());
+        newTechnician.setEmail(colleagueRegistrationDTO.getEmail());
         newTechnician.setAge(colleagueRegistrationDTO.getAge());
         newTechnician.setPassword(passwordEncoder.encode(colleagueRegistrationDTO.getPassword()));
         newTechnician.setRole(new ArrayList<>());
@@ -73,8 +86,10 @@ public class RegisterService {
 
     private void registerNewSupervisor(ColleagueRegistrationDTO colleagueRegistrationDTO) {
         Supervisor newSupervisor = new Supervisor();
+        newSupervisor.setWorkerIdentityNickname(createIdentity(colleagueRegistrationDTO));
         newSupervisor.setFirstName(colleagueRegistrationDTO.getFirstName());
         newSupervisor.setLastName(colleagueRegistrationDTO.getLastName());
+        newSupervisor.setEmail(colleagueRegistrationDTO.getEmail());
         newSupervisor.setAge(newSupervisor.getAge());
         newSupervisor.setPassword(passwordEncoder.encode(colleagueRegistrationDTO.getPassword()));
         newSupervisor.setRole(new ArrayList<>());
