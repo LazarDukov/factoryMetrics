@@ -6,5 +6,12 @@
 </head>
 <body>
 <h1>Login here:</h1>
+<form id="loginDTO" action="/user/login" method="POST" >
+    <label>Your identity:</label>
+    <input type="text" name="workerIdentityNickname" required>
+    <label>Password:</label>
+    <input type="password" name="password" required>
+    <button type="submit">Login</button>
+</form>
 </body>
 </html>

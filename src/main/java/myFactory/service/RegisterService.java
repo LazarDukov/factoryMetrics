@@ -60,15 +60,6 @@ public class RegisterService {
         warehouserRepository.save(newWarehouser);
     }
 
-    private String createIdentity(ColleagueRegistrationDTO colleagueRegistrationDTO) {
-        StringBuilder stringBuilder = new StringBuilder();
-        long countWorkersInFactory = 1 + warehouserRepository.count() + technicianRepository.count() + supervisorRepository.count();
-        stringBuilder.append(colleagueRegistrationDTO.getFirstName(), 0, 2);
-        stringBuilder.append(countWorkersInFactory);
-        stringBuilder.append(colleagueRegistrationDTO.getLastName(), 0, 2);
-        return stringBuilder.toString();
-    }
-
     private void registerNewTechnician(ColleagueRegistrationDTO colleagueRegistrationDTO) {
         Technician newTechnician = new Technician();
         newTechnician.setWorkerIdentityNickname(createIdentity(colleagueRegistrationDTO));
@@ -90,12 +81,21 @@ public class RegisterService {
         newSupervisor.setFirstName(colleagueRegistrationDTO.getFirstName());
         newSupervisor.setLastName(colleagueRegistrationDTO.getLastName());
         newSupervisor.setEmail(colleagueRegistrationDTO.getEmail());
-        newSupervisor.setAge(newSupervisor.getAge());
+        newSupervisor.setAge(colleagueRegistrationDTO.getAge());
         newSupervisor.setPassword(passwordEncoder.encode(colleagueRegistrationDTO.getPassword()));
         newSupervisor.setRole(new ArrayList<>());
         newSupervisor.getRole().add(workerRoleRepository.findWorkerRoleByRole(WorkerRoleEnum.WAREHOUSE_WORKER));
         newSupervisor.setTasks(new ArrayList<>());
         supervisorRepository.save(newSupervisor);
+    }
+
+    private String createIdentity(ColleagueRegistrationDTO colleagueRegistrationDTO) {
+        StringBuilder stringBuilder = new StringBuilder();
+        long countWorkersInFactory = 1 + warehouserRepository.count() + technicianRepository.count() + supervisorRepository.count();
+        stringBuilder.append(colleagueRegistrationDTO.getFirstName(), 0, 2);
+        stringBuilder.append(countWorkersInFactory);
+        stringBuilder.append(colleagueRegistrationDTO.getLastName(), 0, 2);
+        return stringBuilder.toString();
     }
 
 }
