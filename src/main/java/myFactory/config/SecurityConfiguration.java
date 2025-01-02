@@ -16,13 +16,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(auth -> auth.requestMatchers("/login","/")
+        http.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(auth -> auth.requestMatchers("/","/user/register","/css/**", "/js/**", "/images/**")
                         .permitAll().anyRequest().authenticated()).
                 formLogin(form -> form.loginPage("/user/login").permitAll()).logout(LogoutConfigurer::permitAll);
         return http.build();
@@ -37,6 +38,7 @@ public class SecurityConfiguration {
     public UserDetailsService userDetailsService(SupervisorRepository supervisorRepository, TechnicianRepository technicianRepository, WarehouserRepository warehouserRepository) {
         return new ApplicationUserDetailsService(supervisorRepository, technicianRepository, warehouserRepository);
     }
+
 
 
 }
