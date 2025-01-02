@@ -1,1 +1,0 @@
-let up = document.getElement

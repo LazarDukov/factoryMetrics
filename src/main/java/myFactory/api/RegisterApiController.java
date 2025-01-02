@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/user")
 public class RegisterApiController {
     private RegisterService registerService;
 

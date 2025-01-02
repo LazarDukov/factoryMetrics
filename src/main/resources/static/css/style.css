@@ -1,5 +1,5 @@
 .page-on-top {
-    
+
     background-color: rgb(89, 173, 252);
     text-align: center;
     padding-top: 20px;
@@ -10,27 +10,46 @@
     border: 2px solid rgba(61, 61, 61, 0.534);
     color: antiquewhite;
 }
+
 .body {
-    background-color: rgb(108, 117, 253, 0.5);
-    
-    
+    /*background-color: rgb(108, 117, 253, 0.5);*/
+    background-image: url("../images/body-background.jpg");
+    background-repeat: no-repeat;
+
+
 }
 
 .log-in-button {
     margin: 0;
-  position: absolute;
-  padding: 40px 70px;
-  border-radius: 80%;
-  background-color: bisque;
-  font-size: 50px;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  top: 60%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  color: rgb(241, 175, 89);
-  
+    position: absolute;
+    padding: 40px 70px;
+    border-radius: 80%;
+    background-color: bisque;
+    font-size: 50px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    top: 60%;
+    left: 40%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    color: rgb(241, 175, 89);
 }
+
+.register-button {
+    margin: 0;
+    position: absolute;
+    padding: 40px 70px;
+    border-radius: 80%;
+    background-color: bisque;
+    font-size: 50px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    top: 60%;
+    left: 60%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    color: rgb(241, 175, 89);
+
+}
+
 .description-div {
     position: absolute;
     left: 50%;
@@ -38,7 +57,7 @@
     border: 2px solid;
     height: 300px;
     width: 400px;
-    background-color:rgb(89, 173, 252);
+    background-color: rgb(89, 173, 252);
     border-radius: 10%;
     border: 2px solid rgba(61, 61, 61, 0.534);
     color: antiquewhite;
@@ -48,5 +67,5 @@
 
 .description-h2 {
     text-align: center;
-    
+
 }
