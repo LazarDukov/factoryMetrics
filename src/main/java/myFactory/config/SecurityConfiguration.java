@@ -15,9 +15,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
@@ -25,7 +22,11 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(auth -> auth.requestMatchers("/","/user/register","/css/**", "/js/**", "/images/**")
                         .permitAll().anyRequest().authenticated()).
-                formLogin(form -> form.loginPage("/user/login").permitAll()).logout(LogoutConfigurer::permitAll);
+                formLogin(form -> form.loginPage("/user/login").permitAll()
+                        .usernameParameter("workerIdentity")
+                        .passwordParameter("password")
+                        .defaultSuccessUrl("/").failureForwardUrl("/error-page"))
+                .logout(LogoutConfigurer::permitAll);
         return http.build();
     }
 
