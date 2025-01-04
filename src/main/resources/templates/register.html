@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Add new colleague</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+<div class="register-form">
 <h1>Register new colleague</h1>
 <form action="/user/register" method="POST">
-    <label>First name:</label>
+    <label>First name:</label><br>
     <input type="text" name="firstName" required></br>
-    <label>Last name:</label>
+    <label>Last name:</label><br>
     <input type="text" name="lastName" required></br>
-    <label>Email:</label>
+    <label>Email:</label><br>
     <input type="email" name="email" required></br>
-    <label>Age:</label>
+    <label>Age:</label><br>
     <select type="number" name="age" required>
         <option value="placeholder" selected>Click to select</option>
         <option>18</option>
@@ -65,20 +67,22 @@
         <option>64</option>
         <option>65</option>
 
-    </select></br>
+    </select><br>
 
-    <label>Password:</label>
-    <input type="password" name="password" required></br>
-    <label>Confirm password:</label>
-    <input type="password" name="confirmPassword" required></br>
-    <label>Select your working position</label>
+    <label>Password:</label><br>
+    <input type="password" name="password" required><br>
+    <label>Confirm password:</label><br>
+    <input type="password" name="confirmPassword" required><br>
+    <label>Select your working position</label><br>
     <select type="text" name="role" required>
         <option selected>Click her to choose</option>
         <option>Supervisor</option>
         <option>Warehouser</option>
         <option>Technician</option>
-    </select>
+    </select><br>
     <button type="submit">Register</button>
+
 </form>
+</div>
 </body>
 </html>

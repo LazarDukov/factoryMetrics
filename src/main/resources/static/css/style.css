@@ -69,3 +69,20 @@
     text-align: center;
 
 }
+
+.register-form {
+    position: absolute;
+    left: 450px;
+    height: 700px;
+    width: 800px;
+    border: 2px solid;
+    border-radius: 10px;
+    text-align: center;
+
+}
+.register-form input, .register-form select {
+    height: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+    width: 580px;
+}
