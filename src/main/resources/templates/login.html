@@ -9,14 +9,15 @@
 <header>
     <h1 class="page-on-top">Factory Metrics</h1>
 </header>
-
-<h1>Login here:</h1>
-<form id="loginDTO" action="/user/login" method="POST" >
-    <label>Your identity:</label>
-    <input type="text" name="workerIdentity" required>
-    <label>Password:</label>
-    <input type="password" name="password" required>
-    <button type="submit">Login</button>
-</form>
+<div class="login-form">
+    <h1>Login here:</h1>
+    <form id="loginDTO" action="/user/login" method="POST">
+        <label>Your identity:</label><br>
+        <input type="text" name="workerIdentity" required><br>
+        <label>Password:</label><br>
+        <input type="password" name="password" required><br>
+        <button type="submit" class="login-button-in-log-form">Login</button>
+    </form>
+</div>
 </body>
 </html>

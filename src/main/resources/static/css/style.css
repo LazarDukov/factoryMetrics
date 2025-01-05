@@ -74,19 +74,43 @@
     background-color: bisque;
     color: dimgrey;
     position: absolute;
-    left: 450px;
+    left: 620px;
     height: 700px;
-    width: 800px;
+    width: 500px;
     border: 2px solid;
     border-radius: 10px;
     text-align: center;
 
 }
-.register-form input, .register-form select {
+.login-form {
+    background-color: bisque;
+    color: dimgrey;
+    position: absolute;
+    left: 620px;
+    height: 330px;
+    width: 500px;
+    border: 2px solid;
+    border-radius: 10px;
+    text-align: center;
+
+}
+.register-form input, .register-form select, .login-form input {
     background-color: lightgrey;
     color: dimgrey;
     height: 20px;
     margin-bottom: 30px;
     text-align: center;
-    width: 580px;
+    width: 250px;
+}
+
+.register-button-in-reg-form, .login-button-in-log-form {
+    height: 40px;
+    width: 120px;
+    background-color: bisque;
+    color: dimgrey;
+    font-size: 20px;
+    font-weight: bold;
+    border: 1px solid dimgray;
+    border-radius: 5px;
+
 }
