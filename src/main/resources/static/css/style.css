@@ -1,6 +1,6 @@
 .page-on-top {
 
-    background-color: rgb(89, 173, 252);
+    background-color: bisque;
     text-align: center;
     padding-top: 20px;
     padding-bottom: 20px;
@@ -8,12 +8,11 @@
     margin-left: -10px;
     margin-right: -10px;
     border: 2px solid rgba(61, 61, 61, 0.534);
-    color: antiquewhite;
+    color: dimgrey;
 }
 
 .body {
-    /*background-color: rgb(108, 117, 253, 0.5);*/
-    background-image: url("../images/body-background.jpg");
+    background-image: url("../images/background.jpg");
     background-repeat: no-repeat;
 
 
@@ -31,7 +30,7 @@
     left: 40%;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-    color: rgb(241, 175, 89);
+    color: dimgrey;
 }
 
 .register-button {
@@ -46,7 +45,7 @@
     left: 60%;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-    color: rgb(241, 175, 89);
+    color: dimgrey;
 
 }
 
@@ -57,12 +56,13 @@
     border: 2px solid;
     height: 300px;
     width: 400px;
-    background-color: rgb(89, 173, 252);
+    background-color: bisque;
     border-radius: 10%;
     border: 2px solid rgba(61, 61, 61, 0.534);
-    color: antiquewhite;
+    color: dimgrey;
     padding-left: 10px;
     padding-right: 10px;
+    text-align: center;
 }
 
 .description-h2 {
@@ -71,6 +71,8 @@
 }
 
 .register-form {
+    background-color: bisque;
+    color: dimgrey;
     position: absolute;
     left: 450px;
     height: 700px;
@@ -81,6 +83,8 @@
 
 }
 .register-form input, .register-form select {
+    background-color: lightgrey;
+    color: dimgrey;
     height: 20px;
     margin-bottom: 30px;
     text-align: center;
