@@ -1,11 +1,9 @@
 package myFactory.service;
 
 import jakarta.persistence.Transient;
-import myFactory.model.entities.Supervisor;
-import myFactory.model.entities.Technician;
-import myFactory.model.entities.Warehouser;
-import myFactory.model.entities.WorkerRole;
+import myFactory.model.entities.*;
 import myFactory.repository.SupervisorRepository;
+import myFactory.repository.SystemAdministratorRepository;
 import myFactory.repository.TechnicianRepository;
 import myFactory.repository.WarehouserRepository;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,11 +15,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 
 public class ApplicationUserDetailsService implements UserDetailsService {
+    private final SystemAdministratorRepository systemAdministratorRepository;
     private final SupervisorRepository supervisorRepository;
     private final TechnicianRepository technicianRepository;
     private final WarehouserRepository warehouserRepository;
 
-    public ApplicationUserDetailsService(SupervisorRepository supervisorRepository, TechnicianRepository technicianRepository, WarehouserRepository warehouserRepository) {
+    public ApplicationUserDetailsService(SystemAdministratorRepository systemAdministratorRepository, SupervisorRepository supervisorRepository, TechnicianRepository technicianRepository, WarehouserRepository warehouserRepository) {
+        this.systemAdministratorRepository = systemAdministratorRepository;
         this.supervisorRepository = supervisorRepository;
         this.technicianRepository = technicianRepository;
         this.warehouserRepository = warehouserRepository;
@@ -30,10 +30,11 @@ public class ApplicationUserDetailsService implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String workerIdentity) throws UsernameNotFoundException {
-        return supervisorRepository.findByWorkerIdentityNickname(workerIdentity).map(this::mapSupervisor).orElseGet(() ->
+        return systemAdministratorRepository.findSystemAdministratorByWorkerIdentityNickname(workerIdentity).map(this::mapSystemAdministrator).orElseGet(() ->
+                supervisorRepository.findByWorkerIdentityNickname(workerIdentity).map(this::mapSupervisor).orElseGet(() ->
                 technicianRepository.findByWorkerIdentityNickname(workerIdentity).map(this::mapTechician).orElseGet(() ->
                         warehouserRepository.findByWorkerIdentityNickname(workerIdentity).map(this::mapWarehouser).
-                                orElseThrow(() -> new UsernameNotFoundException("User with username " + workerIdentity + " not found!"))));
+                                orElseThrow(() -> new UsernameNotFoundException("User with username " + workerIdentity + " not found!")))));
     }
 
     private UserDetails mapWarehouser(Warehouser warehouser) {
@@ -51,6 +52,12 @@ public class ApplicationUserDetailsService implements UserDetailsService {
     private UserDetails mapSupervisor(Supervisor supervisor) {
         return User.builder().username(supervisor.getWorkerIdentityNickname()).password(supervisor.getPassword())
                 .authorities(supervisor.getRole().stream()
+                        .map(this::map).toList()).build();
+    }
+
+    private UserDetails mapSystemAdministrator(SystemAdministrator systemAdministrator) {
+        return User.builder().username(systemAdministrator.getWorkerIdentityNickname()).password(systemAdministrator.getPassword())
+                .authorities(systemAdministrator.getRole().stream()
                         .map(this::map).toList()).build();
     }
 

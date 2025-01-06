@@ -1,6 +1,8 @@
 package myFactory.config;
 
+import myFactory.model.entities.SystemAdministrator;
 import myFactory.repository.SupervisorRepository;
+import myFactory.repository.SystemAdministratorRepository;
 import myFactory.repository.TechnicianRepository;
 import myFactory.repository.WarehouserRepository;
 import myFactory.service.ApplicationUserDetailsService;
@@ -36,8 +38,8 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public UserDetailsService userDetailsService(SupervisorRepository supervisorRepository, TechnicianRepository technicianRepository, WarehouserRepository warehouserRepository) {
-        return new ApplicationUserDetailsService(supervisorRepository, technicianRepository, warehouserRepository);
+    public UserDetailsService userDetailsService(SystemAdministratorRepository systemAdministratorRepository, SupervisorRepository supervisorRepository, TechnicianRepository technicianRepository, WarehouserRepository warehouserRepository) {
+        return new ApplicationUserDetailsService(systemAdministratorRepository, supervisorRepository, technicianRepository, warehouserRepository);
     }
 
 

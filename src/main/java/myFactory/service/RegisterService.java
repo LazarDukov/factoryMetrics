@@ -2,13 +2,11 @@ package myFactory.service;
 
 import myFactory.model.dtos.ColleagueRegistrationDTO;
 import myFactory.model.entities.Supervisor;
+import myFactory.model.entities.SystemAdministrator;
 import myFactory.model.entities.Technician;
 import myFactory.model.entities.Warehouser;
 import myFactory.model.enums.WorkerRoleEnum;
-import myFactory.repository.SupervisorRepository;
-import myFactory.repository.TechnicianRepository;
-import myFactory.repository.WarehouserRepository;
-import myFactory.repository.WorkerRoleRepository;
+import myFactory.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,6 +15,7 @@ import java.util.ArrayList;
 
 @Service
 public class RegisterService {
+    private SystemAdministratorRepository systemAdministratorRepository;
     private WorkerRoleRepository workerRoleRepository;
     private TechnicianRepository technicianRepository;
 
@@ -26,7 +25,8 @@ public class RegisterService {
     private WarehouserRepository warehouserRepository;
 
     @Autowired
-    public RegisterService(WorkerRoleRepository workerRoleRepository, TechnicianRepository technicianRepository, SupervisorRepository supervisorRepository, PasswordEncoder passwordEncoder, WarehouserRepository warehouserRepository) {
+    public RegisterService(SystemAdministratorRepository systemAdministratorRepository, WorkerRoleRepository workerRoleRepository, TechnicianRepository technicianRepository, SupervisorRepository supervisorRepository, PasswordEncoder passwordEncoder, WarehouserRepository warehouserRepository) {
+        this.systemAdministratorRepository = systemAdministratorRepository;
         this.workerRoleRepository = workerRoleRepository;
         this.technicianRepository = technicianRepository;
         this.supervisorRepository = supervisorRepository;
@@ -35,6 +35,9 @@ public class RegisterService {
     }
 
     public void RegisterNewColleague(ColleagueRegistrationDTO colleagueRegistrationDTO) {
+        if (colleagueRegistrationDTO.getRole().equals("System administrator")) {
+            registerNewSystemAdministrator(colleagueRegistrationDTO);
+        }
         if (colleagueRegistrationDTO.getRole().equals("Technician")) {
             registerNewTechnician(colleagueRegistrationDTO);
         }
@@ -45,6 +48,21 @@ public class RegisterService {
             registerNewWarehouser(colleagueRegistrationDTO);
         }
     }
+
+    private void registerNewSystemAdministrator(ColleagueRegistrationDTO colleagueRegistrationDTO) {
+        SystemAdministrator newSystemAdministrator = new SystemAdministrator();
+        newSystemAdministrator.setWorkerIdentityNickname(createIdentity(colleagueRegistrationDTO));
+        newSystemAdministrator.setFirstName(colleagueRegistrationDTO.getFirstName());
+        newSystemAdministrator.setLastName(colleagueRegistrationDTO.getLastName());
+        newSystemAdministrator.setEmail(colleagueRegistrationDTO.getEmail());
+        newSystemAdministrator.setAge(colleagueRegistrationDTO.getAge());
+        newSystemAdministrator.setPassword(passwordEncoder.encode(colleagueRegistrationDTO.getPassword()));
+        newSystemAdministrator.setRole(new ArrayList<>());
+        newSystemAdministrator.getRole().add(workerRoleRepository.findWorkerRoleByRole(WorkerRoleEnum.SYSTEM_ADMINISTRATOR));
+        systemAdministratorRepository.save(newSystemAdministrator);
+    }
+
+
 
     private void registerNewWarehouser(ColleagueRegistrationDTO colleagueRegistrationDTO) {
         Warehouser newWarehouser = new Warehouser();
@@ -91,7 +109,7 @@ public class RegisterService {
 
     private String createIdentity(ColleagueRegistrationDTO colleagueRegistrationDTO) {
         StringBuilder stringBuilder = new StringBuilder();
-        long countWorkersInFactory = 1 + warehouserRepository.count() + technicianRepository.count() + supervisorRepository.count();
+        long countWorkersInFactory = 1 + warehouserRepository.count() + technicianRepository.count() + supervisorRepository.count() + systemAdministratorRepository.count();
         stringBuilder.append(colleagueRegistrationDTO.getFirstName(), 0, 2);
         stringBuilder.append(countWorkersInFactory);
         stringBuilder.append(colleagueRegistrationDTO.getLastName(), 0, 2);
