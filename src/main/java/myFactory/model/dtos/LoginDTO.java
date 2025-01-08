@@ -1,6 +1,7 @@
 package myFactory.model.dtos;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 public class LoginDTO {
     @NotBlank

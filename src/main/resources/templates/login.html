@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Login</title>
     <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/login.js" defer></script>
 </head>
 <body class="body">
 <header>
@@ -12,11 +13,17 @@
 <div class="login-form">
     <h1>Login here:</h1>
     <form id="loginDTO" action="/user/login" method="POST">
-        <label>Your identity:</label><br>
-        <input type="text" name="workerIdentity" required><br>
-        <label>Password:</label><br>
-        <input type="password" name="password" required><br>
-        <button type="submit" class="login-button-in-log-form">Login</button>
+        <fieldset>
+            <div>
+                <label for="workerIdentity">Your identity:</label><br>
+                <input type="text" id="workerIdentity"/><br>
+            </div>
+            <div>
+                <label for="password">Password:</label><br>
+                <input type="password" id="password"/><br>
+            </div>
+            <button type="submit" id="submitButton" class="login-button-in-log-form">Login</button>
+        </fieldset>
     </form>
 </div>
 </body>
