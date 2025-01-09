@@ -98,7 +98,7 @@
     background-color: lightgrey;
     color: dimgrey;
     height: 20px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     text-align: center;
     width: 250px;
 }
@@ -112,5 +112,17 @@
     font-weight: bold;
     border: 1px solid dimgray;
     border-radius: 5px;
+
+
+}
+.validation-message {
+    display: block; /* Ensure it takes a full line */
+    color: red;
+     /* Add space before the message */
+}
+.workerIdentityDiv {
+    height: 90px;
+    width: 100%;
+    text-align: center;
 
 }
