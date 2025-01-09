@@ -12,8 +12,10 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Service
 public class ApplicationUserDetailsService implements UserDetailsService {
     private final SystemAdministratorRepository systemAdministratorRepository;
     private final SupervisorRepository supervisorRepository;
@@ -32,9 +34,9 @@ public class ApplicationUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String workerIdentity) throws UsernameNotFoundException {
         return systemAdministratorRepository.findSystemAdministratorByWorkerIdentityNickname(workerIdentity).map(this::mapSystemAdministrator).orElseGet(() ->
                 supervisorRepository.findByWorkerIdentityNickname(workerIdentity).map(this::mapSupervisor).orElseGet(() ->
-                technicianRepository.findByWorkerIdentityNickname(workerIdentity).map(this::mapTechician).orElseGet(() ->
-                        warehouserRepository.findByWorkerIdentityNickname(workerIdentity).map(this::mapWarehouser).
-                                orElseThrow(() -> new UsernameNotFoundException("User with username " + workerIdentity + " not found!")))));
+                        technicianRepository.findByWorkerIdentityNickname(workerIdentity).map(this::mapTechnician).orElseGet(() ->
+                                warehouserRepository.findByWorkerIdentityNickname(workerIdentity).map(this::mapWarehouser).
+                                        orElseThrow(() -> new UsernameNotFoundException("User with username " + workerIdentity + " not found!")))));
     }
 
     private UserDetails mapWarehouser(Warehouser warehouser) {
@@ -43,7 +45,7 @@ public class ApplicationUserDetailsService implements UserDetailsService {
                         .map(this::map).toList()).build();
     }
 
-    private UserDetails mapTechician(Technician technician) {
+    private UserDetails mapTechnician(Technician technician) {
         return User.builder().username(technician.getWorkerIdentityNickname()).password(technician.getPassword())
                 .authorities(technician.getRole().stream()
                         .map(this::map).toList()).build();

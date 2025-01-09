@@ -26,13 +26,17 @@ function showValidationMessagePassword(passwordInput, message) {
     messageElement.textContent = message;
 }
 
-function clearValidationMessage(workerIdentityInput, passwordInput) {
+function clearValidationMessageWorkerIdentity(workerIdentityInput) {
     let workerIdentity = workerIdentityInput.nextElementSibling;
-    let password = passwordInput.nextElementSibling;
+
     if (workerIdentity.classList.contains('validation-message')) {
         workerIdentity.textContent = '';
         workerIdentity.classList.remove('validation-message');
     }
+
+}
+function clearValidationMessagePassword(passwordInput) {
+    let password = passwordInput.nextElementSibling;
     if (password.classList.contains('validation-message')) {
         password.textContent = '';
         password.classList.remove('validation-message');
@@ -53,11 +57,11 @@ function validation() {
     }
     if (workerIdentity.value) {
         workerIdentity.style.border = "";
-        clearValidationMessage(workerIdentity, password);
+        clearValidationMessageWorkerIdentity(workerIdentity);
     }
     if (password.value) {
         password.style.border = "";
-        clearValidationMessage(password);
+        clearValidationMessagePassword(password);
     }
 }
 
