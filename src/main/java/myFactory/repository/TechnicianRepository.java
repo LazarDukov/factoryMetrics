@@ -11,5 +11,6 @@ import java.util.UUID;
 @Repository
 public interface TechnicianRepository extends JpaRepository<Technician, UUID> {
 
-    Optional<Technician> findByWorkerIdentityNickname(String workerIdentity);
+    //Optional<Technician> findByWorkerIdentityNickname(String workerIdentity);
+    Optional<Technician> findTechnicianByWorkerIdentityNickname(String workerIdentity);
 }

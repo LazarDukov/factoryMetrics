@@ -1,4 +1,4 @@
-const form = document.querySelector('form');
+const form = document.getElementById('submitButton');
 const workerIdentity = document.querySelector('#workerIdentity');
 const password = document.querySelector('#password');
 
@@ -49,26 +49,6 @@ function validation() {
 
 form.addEventListener('submit', async e => {
     e.preventDefault();
-    if (validation()) {
-        try {
-            const response = await fetch('/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: new URLSearchParams(new FormData(form))
-            });
+    validation();
 
-            if (response.ok) {
-                console.log("Login successful");
-                window.location.href = '/'; // Redirect manually
-            } else {
-                console.error("Login failed");
-                showValidationMessage(workerIdentity, "Invalid credentials. Try again.");
-                password.style.border = "5px solid red";
-            }
-        } catch (error) {
-            console.error("Error during login", error);
-        }
-    }
 });

@@ -34,7 +34,7 @@ public class ApplicationUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String workerIdentity) throws UsernameNotFoundException {
         return systemAdministratorRepository.findSystemAdministratorByWorkerIdentityNickname(workerIdentity).map(this::mapSystemAdministrator).orElseGet(() ->
                 supervisorRepository.findByWorkerIdentityNickname(workerIdentity).map(this::mapSupervisor).orElseGet(() ->
-                        technicianRepository.findByWorkerIdentityNickname(workerIdentity).map(this::mapTechnician).orElseGet(() ->
+                        technicianRepository.findTechnicianByWorkerIdentityNickname(workerIdentity).map(this::mapTechnician).orElseGet(() ->
                                 warehouserRepository.findByWorkerIdentityNickname(workerIdentity).map(this::mapWarehouser).
                                         orElseThrow(() -> new UsernameNotFoundException("User with username " + workerIdentity + " not found!")))));
     }
@@ -46,9 +46,12 @@ public class ApplicationUserDetailsService implements UserDetailsService {
     }
 
     private UserDetails mapTechnician(Technician technician) {
-        return User.builder().username(technician.getWorkerIdentityNickname()).password(technician.getPassword())
+        return User.builder()
+                .username(technician.getWorkerIdentityNickname())
+                .password(technician.getPassword())
                 .authorities(technician.getRole().stream()
-                        .map(this::map).toList()).build();
+                        .map(this::map).toList())
+                .build();
     }
 
     private UserDetails mapSupervisor(Supervisor supervisor) {

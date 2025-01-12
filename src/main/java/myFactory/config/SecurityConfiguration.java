@@ -25,13 +25,9 @@ import org.springframework.security.web.context.SecurityContextRepository;
 public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(auth -> auth.requestMatchers("/","/user/login","/user/register","/css/**", "/js/**", "/images/**")
-                        .permitAll().anyRequest().authenticated()).
-                formLogin(form -> form.loginPage("/user/login").permitAll()
-                        .usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)
-                        .passwordParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY)
-                        .defaultSuccessUrl("/", true).failureForwardUrl("/error-page"))
-                        .logout(LogoutConfigurer::permitAll);
+        http.csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/","/user/login","/user/register","/css/**", "/js/**", "/images/**")
+                        .permitAll().anyRequest().authenticated());
         return http.build();
     }
 
