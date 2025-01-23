@@ -1,26 +1,25 @@
 package myFactory.model.dtos;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 
 public class LoginDTO {
     @NotBlank
-    private String identity;
+    private String workerIdentity;
 
     @NotBlank
     private String password;
 
-    public LoginDTO(String identity, String password) {
-        this.identity = identity;
+    public LoginDTO(String workerIdentity, String password) {
+        this.workerIdentity = workerIdentity;
         this.password = password;
     }
 
     public String getIdentity() {
-        return identity;
+        return workerIdentity;
     }
 
     public LoginDTO setIdentity(String identity) {
-        this.identity = identity;
+        this.workerIdentity = identity;
         return this;
     }
 

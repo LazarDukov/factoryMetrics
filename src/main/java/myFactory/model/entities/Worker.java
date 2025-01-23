@@ -2,6 +2,7 @@ package myFactory.model.entities;
 
 import jakarta.persistence.*;
 import myFactory.util.PasswordMatchValidatorInterface;
+import org.hibernate.annotations.Fetch;
 
 import java.util.List;
 import java.util.Set;
@@ -35,7 +36,7 @@ public abstract class Worker {
     private String email;
 
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<WorkerRole> role;
 
     protected Worker(UUID id, String workerIdentityNickname, String firstName, String lastName, int age, String password, String email) {
