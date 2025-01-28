@@ -9,8 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class LoginViewController {
     @GetMapping("/login")
     public String getLoginPage() {
-    return "login";
+        return "login";
     }
 
+    @GetMapping("/error-page")
+    public String getErrorPage() {
+        return "error-page";
+    }
 
 }

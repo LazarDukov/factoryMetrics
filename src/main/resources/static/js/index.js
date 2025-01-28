@@ -15,3 +15,5 @@ function loadLoginPage() {
 function loadRegisterPage() {
     window.location.href = "http://localhost:8080/user/register";
 }
+
+

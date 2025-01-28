@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,16 +22,19 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/", "/user/login", "/user/register","/error-page", "/css/**", "/js/**", "/images/**", "/login")
-                        .permitAll().anyRequest().authenticated()).formLogin(form -> form
-                        .loginPage("/login").loginProcessingUrl("/user/login")
+        http.csrf(AbstractHttpConfigurer::disable).
+                authorizeHttpRequests(auth -> auth.requestMatchers("/", "/user/login", "/user/register", "/error-page", "/css/**", "/js/**", "/images/**", "/login")
+                        .permitAll().anyRequest().authenticated())
+                .formLogin(form -> form
+                        .loginProcessingUrl("/user/login")
                         .usernameParameter("workerIdentity")
                         .passwordParameter("password")
                         .defaultSuccessUrl("/")
-                        .failureForwardUrl("/error-page")
-                        .permitAll()
-                );
+                        .failureUrl("/error-page")
+                        .permitAll())
+                .logout(logout -> logout.invalidateHttpSession(true)
+                        .clearAuthentication(true)
+                        .logoutSuccessUrl("/"));
         return http.build();
     }
 
@@ -38,9 +42,6 @@ public class SecurityConfiguration {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-
-
 
 
 }
