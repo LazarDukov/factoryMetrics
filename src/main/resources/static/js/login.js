@@ -53,3 +53,12 @@
 //
 // });
 
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.has('error')) {
+    document.getElementById('error-message-workerIdentity').style.display = 'block';
+}
+
+
+if (urlParams.has('error')) {
+    document.getElementById('error-message-password').style.display = 'block';
+}

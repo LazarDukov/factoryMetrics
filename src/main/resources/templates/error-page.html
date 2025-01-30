@@ -2,9 +2,32 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Login</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.jpg">
+    <link rel="stylesheet" href="/css/style.css">
+    <!--    <script src="/js/login.js" defer></script>-->
 </head>
-<body>
+<body class="body">
+<header>
+    <h1 class="page-on-top">Factory Metrics</h1>
+</header>
+<div class="login-form">
+    <h1>Login here:</h1>
+    <form>
+        <fieldset>
+            <div class="workerIdentityDiv">
+                <label for="workerIdentity" >Your identity:</label><br>
+                <input type="text" id="workerIdentity" name="workerIdentity"/><br>
+                <p id="error-message" style="color: red; display: none;">Invalid credentials, please try again.</p>
 
+            </div>
+            <div class="workerIdentityDiv">
+                <label for="password">Password:</label><br>
+                <input type="password" id="password" name="password"/><br>
+            </div>
+            <button type="submit" id="submitButton" class="login-button-in-log-form">Login</button>
+        </fieldset>
+    </form>
+</div>
 </body>
 </html>
