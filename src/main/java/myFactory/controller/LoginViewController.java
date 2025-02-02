@@ -12,9 +12,9 @@ public class LoginViewController {
         return "login";
     }
 
-    @GetMapping("/error-page")
+    @GetMapping("/login-error")
     public String getErrorPage() {
-        return "error-page";
+        return "login-error";
     }
 
 }

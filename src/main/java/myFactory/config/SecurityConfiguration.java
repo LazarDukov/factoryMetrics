@@ -44,12 +44,12 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(auth -> auth.requestMatchers("/", "/user/login", "/user/register", "/error-page", "/css/**", "/js/**", "/images/**").permitAll())
+        return http.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(auth -> auth.requestMatchers("/", "/user/login", "/user/register", "/user/login-error", "/css/**", "/js/**", "/images/**").permitAll())
                 .formLogin(form -> form
                         .loginProcessingUrl("/user/login")
                         .usernameParameter("workerIdentity")
                         .passwordParameter("password")
-                        .defaultSuccessUrl("/").permitAll()
+                        .defaultSuccessUrl("/", true)
                         .failureHandler((request, response, exception) -> {
                             response.sendRedirect("/user/login?error=true");
                         }))

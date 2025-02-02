@@ -1,6 +1,5 @@
 package myFactory.controller;
 
-import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -14,6 +13,6 @@ public class HomeController {
 
     @GetMapping("/error-page")
     public String errorPage() {
-        return "error-page";
+        return "login-error";
     }
 }
