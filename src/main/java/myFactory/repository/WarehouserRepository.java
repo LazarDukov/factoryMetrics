@@ -10,5 +10,5 @@ import java.util.UUID;
 
 @Repository
 public interface WarehouserRepository extends JpaRepository<Warehouser, UUID> {
-    Optional<Warehouser> findByWorkerIdentityNickname(String workerIdentity);
+    Optional<Warehouser> getByWorkerIdentityNickname(String workerIdentity);
 }

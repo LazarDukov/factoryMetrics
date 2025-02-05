@@ -9,5 +9,5 @@ import java.util.UUID;
 
 @Repository
 public interface SystemAdministratorRepository extends JpaRepository<SystemAdministrator, UUID> {
-    Optional<SystemAdministrator> findSystemAdministratorByWorkerIdentityNickname(String workerIdentity);
+    Optional<SystemAdministrator> getByWorkerIdentityNickname(String workerIdentity);
 }

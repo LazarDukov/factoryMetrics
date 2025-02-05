@@ -2,11 +2,13 @@ package myFactory.service;
 
 import jakarta.annotation.PostConstruct;
 import myFactory.model.entities.SystemAdministrator;
+import myFactory.model.entities.Technician;
 import myFactory.model.entities.WorkerRole;
-import myFactory.model.enums.WorkerRoleEnum;
 import myFactory.repository.SystemAdministratorRepository;
+import myFactory.repository.TechnicianRepository;
 import myFactory.repository.WorkerRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,10 +21,15 @@ public class dbInitService {
     private final WorkerRoleRepository workerRoleRepository;
     private final SystemAdministratorRepository systemAdministratorRepository;
 
+    private final TechnicianRepository technicianRepository;
+    private final PasswordEncoder passwordEncoder;
+
     @Autowired
-    public dbInitService(WorkerRoleRepository workerRoleRepository, SystemAdministratorRepository systemAdministratorRepository) {
+    public dbInitService(WorkerRoleRepository workerRoleRepository, SystemAdministratorRepository systemAdministratorRepository, TechnicianRepository technicianRepository, PasswordEncoder passwordEncoder) {
         this.workerRoleRepository = workerRoleRepository;
         this.systemAdministratorRepository = systemAdministratorRepository;
+        this.technicianRepository = technicianRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @PostConstruct
@@ -33,6 +40,10 @@ public class dbInitService {
         if (systemAdministratorRepository.count() == 0) {
             initSystemAdministrators();
         }
+        if (technicianRepository.count() == 0) {
+            initTechnicians();
+        }
+
     }
 
     private void initSystemAdministrators() {
@@ -46,6 +57,20 @@ public class dbInitService {
         systemAdministrator.setRole(new ArrayList<>());
         systemAdministrator.getRole().add(workerRoleRepository.findWorkerRoleByRole(SYSTEM_ADMINISTRATOR));
         systemAdministratorRepository.save(systemAdministrator);
+    }
+
+    private void initTechnicians() {
+        Technician technician = new Technician();
+        technician.setWorkerIdentityNickname("La2Du");
+        technician.setFirstName("Lazar");
+        technician.setLastName("Dukov");
+        technician.setAge(25);
+        technician.setEmail("LazarDukov@FactoryMetrics.eu");
+        technician.setPassword(passwordEncoder.encode("11111111"));
+        technician.setRole(new ArrayList<>());
+        technician.getRole().add(workerRoleRepository.findWorkerRoleByRole(TECHNICIAN));
+        technician.setTasks(new ArrayList<>());
+        technicianRepository.save(technician);
     }
 
     public void initRoles() {

@@ -49,7 +49,7 @@ public class SecurityConfiguration {
                         .loginProcessingUrl("/user/login")
                         .usernameParameter("workerIdentity")
                         .passwordParameter("password")
-                        .defaultSuccessUrl("/", true)
+                        .defaultSuccessUrl("/")
                         .failureHandler((request, response, exception) -> {
                             response.sendRedirect("/user/login?error=true");
                         }))

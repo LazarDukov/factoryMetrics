@@ -9,5 +9,5 @@ import java.util.UUID;
 
 @Repository
 public interface SupervisorRepository extends JpaRepository<Supervisor, UUID> {
-    Optional<Supervisor> findByWorkerIdentityNickname(String workerIdentity);
+    Optional<Supervisor> getByWorkerIdentityNickname(String workerIdentity);
 }
