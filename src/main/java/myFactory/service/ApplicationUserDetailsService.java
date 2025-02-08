@@ -40,8 +40,6 @@ public class ApplicationUserDetailsService implements UserDetailsService {
 
         System.out.println(userDetails.getUsername());
         return userDetails;
-
-
     }
 
     private UserDetails mapSystemAdministrator(SystemAdministrator systemAdministrator) {

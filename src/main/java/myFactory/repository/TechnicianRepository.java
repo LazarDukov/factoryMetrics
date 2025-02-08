@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @Repository
 public interface TechnicianRepository extends JpaRepository<Technician, UUID> {
-
+    Technician findByWorkerIdentityNickname(String workerIdentity);
 
     Optional<Technician> getByWorkerIdentityNickname(String workerIdentity);
 
