@@ -1,8 +1,10 @@
 package myFactory.config;
 
+import myFactory.interceptor.JwtAuthFilter;
 import myFactory.service.ApplicationUserDetailsService;
-import myFactory.service.JWTService;
 
+import myFactory.util.JwtToken;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,26 +15,30 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
 
     private final ApplicationUserDetailsService applicationUserDetailsService;
+    @Autowired
+    private JwtToken jwtToken;
+    @Autowired
+    private UserDetailsService userDetailsService;
 
-    private final JWTService jwtService;
-
-    public SecurityConfiguration(ApplicationUserDetailsService applicationUserDetailsService, JWTService jwtService) {
+    public SecurityConfiguration(ApplicationUserDetailsService applicationUserDetailsService) {
         this.applicationUserDetailsService = applicationUserDetailsService;
-        this.jwtService = jwtService;
     }
 
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        JwtAuthFilter jwtAuthFilter = new JwtAuthFilter(jwtToken, userDetailsService);
         return http.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(request ->
                         request.requestMatchers("/", "/user/login", "/user/register", "/user/login-error", "/css/**", "/js/**", "/images/**")
                                 .permitAll().anyRequest().authenticated())
@@ -40,12 +46,22 @@ public class SecurityConfiguration {
                         .loginProcessingUrl("/user/login")
                         .usernameParameter("workerIdentity")
                         .passwordParameter("password")
-                        .defaultSuccessUrl("/")
+                        .successHandler((request, response, authentication) -> {
+                            String token = jwtToken.generateToken(authentication.getName());
+                            response.setContentType("application/json");
+                            response.getWriter().write("{token: " + token + "}");
+                            response.sendRedirect("/");
+                            System.out.println(token);
+                        })
                         .failureHandler((request, response, exception) -> {
                             response.sendRedirect("/user/login?error=true");
-                        }))
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .build();
+                        })
+                )
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED) // Allow session-based auth
+                )
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class).build(); // Add JWT validation filter
+
     }
 
     @Bean
